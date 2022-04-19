@@ -3,22 +3,26 @@ import "CoreLibs/sprites"
 class('Paddle').extends(playdate.graphics.sprite)
 
 local gfx<const> = playdate.graphics
+local geom = playdate.geometry
 
 function Paddle:init(options)
     Paddle.super.init(self)
 
-    local screenWidth = playdate.display.getWidth()
-    local screenHeight = playdate.display.getHeight()
-
     self.speed = options.speed
+    self.normal = geom.vector2D.new(0, -1)
+    self.initY = playdate.display.getHeight() - options.height - options.bottomPadding
 
     self:setCenter(0.5, 0)
     self:setBounds(0, 0, options.width, options.height)
     self:setCollideRect(0, 0, options.width, options.height)
 
-    local yPosition =
-    self:moveTo(screenWidth / 2, screenHeight - options.height - options.bottomPadding)
+    self:reset()
+
     self:add()
+end
+
+function Paddle:reset()
+    self:moveTo(playdate.display.getWidth() / 2, self.initY)
 end
 
 function Paddle:draw(x, y, width, height)

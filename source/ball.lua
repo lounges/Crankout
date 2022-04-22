@@ -13,7 +13,7 @@ function Ball:init(options)
     self.radius = options.radius
 
     --TODO: randomize between -0.5 and 0.5
-    self.vector = geom.vector2D.new(-0.5, -1)
+    self.vector = geom.vector2D.new(-0.3, -1)
     print("spawning")
 
     self:setCenter(0.5, 0.5)
@@ -35,7 +35,6 @@ function Ball:destroy()
 end
 
 function Ball:update()
-    print(string.format("vector: %f, %f", self.vector.x, self.vector.y))
     local move = self.vector * self.speed
     local actualX, actualY, collisions, length = self:moveWithCollisions(self.x + move.x, self.y + move.y)
     if (length > 0) then

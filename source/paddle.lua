@@ -9,7 +9,6 @@ function Paddle:init(options)
     Paddle.super.init(self)
 
     self.speed = options.speed
-    self.normal = geom.vector2D.new(0, -1)
     self.initY = playdate.display.getHeight() - options.height - options.bottomPadding
 
     self:setCenter(0.5, 0)

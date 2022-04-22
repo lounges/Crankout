@@ -2,6 +2,7 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "paddle"
 import "ball"
+import "brick"
 
 local gfx<const> = playdate.graphics
 local sprite<const> = playdate.graphics.sprite
@@ -17,6 +18,30 @@ paddle = Paddle {
     bottomPadding = edgePadding,
     speed = 7
 }
+
+for i = 0, 7, 1 do
+    Brick(i * 50, 0)
+end
+
+for i = 0, 6, 1 do
+    Brick(i * 50 + 25, 15)
+end
+
+for i = 0, 7, 1 do
+    Brick(i * 50, 30)
+end
+
+for i = 0, 6, 1 do
+    Brick(i * 50 + 25, 45)
+end
+
+for i = 0, 7, 1 do
+    Brick(i * 50, 60)
+end
+
+for i = 0, 6, 1 do
+    Brick(i * 50 + 25, 75)
+end
 
 sprite.setBackgroundDrawingCallback(
     function(x, y, width, height)
@@ -70,9 +95,13 @@ function spawnBall()
     }
 
     ball.collisionResponse = function(self, other)
-        print("hit something")
         if (other == bottomBlocker) then
             killBallAndStartOver(ball)
+        end
+
+        if (other:isa(Brick)) then
+            print("hit a brick!")
+            other:remove()
         end
     end
 
